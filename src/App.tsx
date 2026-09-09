@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 import LandingPage from "./pages/LandingPage";
 import JobDescriptionPage from "./pages/JobDescriptionPage";
@@ -7,7 +7,7 @@ import ScreeningResultsPage from "./pages/ScreeningResultsPage";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
 
@@ -17,7 +17,7 @@ const App = () => {
 
         <Route path="/results" element={<ScreeningResultsPage />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
