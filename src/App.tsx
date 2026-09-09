@@ -1,14 +1,24 @@
-import JobDescriptionForm from "./components/JobDescriptionForm/JobDescriptionForm";
-import ResumeUpload from "./components/ResumeUpload/ResumeUpload";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import LandingPage from "./pages/LandingPage";
+import JobDescriptionPage from "./pages/JobDescriptionPage";
+import ResumeUploadPage from "./pages/ResumeUploadPage";
+import ScreeningResultsPage from "./pages/ScreeningResultsPage";
 
-function App() {
+const App = () => {
   return (
-    <>
-      <JobDescriptionForm></JobDescriptionForm>
-      <ResumeUpload />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+
+        <Route path="/job" element={<JobDescriptionPage />} />
+
+        <Route path="/upload" element={<ResumeUploadPage />} />
+
+        <Route path="/results" element={<ScreeningResultsPage />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
