@@ -7,6 +7,8 @@ import ScreeningResultsPage from "./pages/ScreeningResultsPage";
 import { ScreeningProvider } from "./context/ScreeningContext";
 import AuthPage from "./pages/AuthPage";
 import { Toaster } from "react-hot-toast";
+import DashboardPage from "./pages/DashboardPage";
+import ProtectedRoute from "./components/Auth/ProtectedRoute";
 
 const App = () => {
   return (
@@ -24,6 +26,10 @@ const App = () => {
           <Route path="/upload" element={<ResumeUploadPage />} />
           <Route path="/results" element={<ScreeningResultsPage />} />
           <Route path="/login" element={<AuthPage />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+          </Route>
         </Routes>
       </ScreeningProvider>
     </HashRouter>

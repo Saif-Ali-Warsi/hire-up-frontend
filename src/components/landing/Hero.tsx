@@ -1,6 +1,6 @@
 const Hero = () => {
   return (
-    <section className="relative pt-16 pb-24 lg:pt-28 lg:pb-36 bg-gradient-to-b from-gray-50/50 via-white to-white overflow-hidden">
+    <section className="relative pt-16 pb-24 lg:pt-28 lg:pb-36  bg-[#f8f3eb] overflow-hidden">
       {/* Background Decorative Glow Elements */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-r from-[#1254E7]/10 via-indigo-500/5 to-transparent blur-3xl pointer-events-none -z-10" />
 

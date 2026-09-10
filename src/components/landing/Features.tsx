@@ -65,7 +65,7 @@ const Features = () => {
   return (
     <section
       id="features"
-      className="py-20 lg:py-28 bg-gray-50/50 relative overflow-hidden"
+      className="py-20 lg:py-28 bg-[#f8f3eb] relative overflow-hidden"
     >
       {/* Background subtle glowing accent */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#1254E7]/5 rounded-full blur-3xl pointer-events-none -z-10" />

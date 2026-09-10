@@ -23,3 +23,22 @@ export const createJob = async (
 
   return data;
 };
+
+export const getJobs = async (token: string) => {
+  const response = await fetch(`${API_URL}/api/jobs`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || "Failed to fetch jobs"
+    );
+  }
+
+  return data;
+};
