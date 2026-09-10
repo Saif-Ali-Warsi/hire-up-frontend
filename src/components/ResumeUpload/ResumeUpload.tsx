@@ -3,17 +3,23 @@ import { useScreening } from "../../context/ScreeningContext";
 import { Navigate, useNavigate } from "react-router-dom";
 import { screenGuest } from "../../services/screeningService";
 import { canGuestUse, consumeGuestUse } from "../../utils/guestUsage";
+import LoginPromptModal from "../Auth/LoginPromptModal";
+import { createJob } from "../../services/jobService";
+import { uploadResumes } from "../../services/resumeService";
+import toast from "react-hot-toast";
 
 const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1 MB
 
 function ResumeUpload() {
   const navigate = useNavigate();
 
-  const { job, resumes, setResumes, setResults } = useScreening();
+  const { job, jobId, resumes, setJobId, setResumes, setResults } =
+    useScreening();
 
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<File[]>(resumes);
   const [invalidFiles, setInvalidFiles] = useState<File[]>([]);
   const [isScreening, setIsScreening] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   if (!job) {
     return <Navigate to="/job" replace />;
@@ -23,7 +29,7 @@ function ResumeUpload() {
     const selectedFiles = Array.from(event.target.files || []);
 
     if (selectedFiles.length > 50) {
-      alert("You can upload a maximum of 50 resumes.");
+      toast.error("You can upload a maximum of 50 resumes.");
       return;
     }
 
@@ -57,17 +63,93 @@ function ResumeUpload() {
 
   const handleStartScreening = async () => {
     if (!job) {
-      alert("Job information is missing.");
+      toast.error("Job information is missing.");
       return;
     }
 
     if (resumes.length === 0) {
-      alert("Please upload at least one resume.");
+      toast.error("Please upload at least one resume.");
       return;
     }
 
+    const accessToken = localStorage.getItem("access_token");
+
+    // ==========================================
+    // AUTHENTICATED USER
+    // ==========================================
+    if (accessToken) {
+      try {
+        setIsScreening(true);
+
+        let currentJobId = jobId;
+
+        // Create job if we don't already have a jobId
+        if (!currentJobId) {
+          const createdJob = await createJob(job, accessToken);
+
+          console.log("Created job response:", createdJob);
+
+          const createdJobId = createdJob?.job?.id;
+
+          if (!createdJobId) {
+            throw new Error("Job was created but no job ID was returned.");
+          }
+
+          currentJobId = createdJobId;
+
+          setJobId(createdJobId);
+        }
+
+        // Extra safety check for TypeScript
+        if (!currentJobId) {
+          throw new Error("Unable to determine job ID.");
+        }
+
+        // Upload resumes using authenticated API
+        const data = await uploadResumes(resumes, currentJobId, accessToken);
+
+        setResults(data);
+
+        navigate("/results");
+      } catch (error) {
+        console.error("Authenticated screening failed:", error);
+
+        if (
+          error instanceof Error &&
+          error.message
+            .toLowerCase()
+            .includes("invalid or expired authentication token")
+        ) {
+          localStorage.removeItem("access_token");
+
+          toast.error("Your session has expired. Please sign in again.");
+
+          navigate("/login", {
+            state: {
+              from: "/upload",
+            },
+          });
+
+          return;
+        }
+
+        toast.error(
+          error instanceof Error
+            ? error.message
+            : "Screening failed. Please try again.",
+        );
+      } finally {
+        setIsScreening(false);
+      }
+
+      return;
+    }
+
+    // ==========================================
+    // GUEST USER
+    // ==========================================
     if (!canGuestUse()) {
-      alert("Please login to continue screening.");
+      setShowLoginModal(true);
       return;
     }
 
@@ -78,17 +160,13 @@ function ResumeUpload() {
 
       setResults(data);
 
+      // Consume only after successful screening
       consumeGuestUse();
 
       navigate("/results");
     } catch (error) {
-      console.error("Screening failed:", error);
-
-      alert(
-        error instanceof Error
-          ? error.message
-          : "Screening failed. Please try again.",
-      );
+      console.error("Guest screening failed:", error);
+    toast.error("Screening failed. Please try again.");
     } finally {
       setIsScreening(false);
     }
@@ -331,6 +409,26 @@ function ResumeUpload() {
           </div>
         )}
       </div>
+
+      <LoginPromptModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        onLogin={() => {
+          navigate("/login", {
+            state: {
+              from: "/upload",
+            },
+          });
+        }}
+        onRegister={() => {
+          navigate("/login", {
+            state: {
+              from: "/upload",
+              mode: "register",
+            },
+          });
+        }}
+      />
     </div>
   );
 }

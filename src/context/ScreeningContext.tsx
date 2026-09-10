@@ -8,8 +8,10 @@ type ScreeningContextType = {
   job: JobDescription | null;
   resumes: File[];
   results: ScreeningResult | null;
-
+  
+  jobId: string | null;
   setJob: (job: JobDescription) => void;
+  setJobId: (jobId: string) => void;
   setResumes: (resumes: File[]) => void;
   setResults: (results: ScreeningResult) => void;
 
@@ -23,12 +25,15 @@ const ScreeningContext = createContext<ScreeningContextType | undefined>(
 export function ScreeningProvider({ children }: { children: ReactNode }) {
   const [job, setJob] = useState<JobDescription | null>(null);
 
+  const [jobId, setJobId] = useState<string | null>(null);
+
   const [resumes, setResumes] = useState<File[]>([]);
 
   const [results, setResults] = useState<ScreeningResult | null>(null);
 
   const clearScreening = () => {
     setJob(null);
+    setJobId(null);
     setResumes([]);
     setResults(null);
   };
@@ -37,9 +42,11 @@ export function ScreeningProvider({ children }: { children: ReactNode }) {
     <ScreeningContext.Provider
       value={{
         job,
+        jobId,
         resumes,
         results,
         setJob,
+        setJobId,
         setResumes,
         setResults,
         clearScreening,

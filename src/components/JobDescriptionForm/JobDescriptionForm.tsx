@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useScreening } from "../../context/ScreeningContext";
 import type { JobDescription } from "../../types/hireup";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 type Requirement = {
   title: string;
@@ -99,6 +100,13 @@ function JobDescriptionForm() {
       requirements,
     };
 
+    if (maxExperience < minExperience) {
+toast.error(
+  "Maximum experience cannot be less than minimum experience."
+);
+      return;
+    }
+
     setJob(jobDescription);
 
     navigate("/upload");
@@ -107,7 +115,6 @@ function JobDescriptionForm() {
   return (
     <div className="min-h-screen bg-gray-50/50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        
         {/* Page Header */}
         <div className="text-center mb-10">
           <span className="inline-block text-[#1254E7] font-semibold text-sm uppercase tracking-wider bg-[#1254E7]/10 px-3.5 py-1.5 rounded-full mb-3">
@@ -117,12 +124,12 @@ function JobDescriptionForm() {
             Create Job Description
           </h1>
           <p className="mt-2 text-sm text-gray-600">
-            Define your role requirements so our AI engine can precisely evaluate and rank candidate resumes.
+            Define your role requirements so our AI engine can precisely
+            evaluate and rank candidate resumes.
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
-          
           {/* Section 1: Basic Information */}
           <div className="bg-white p-6 sm:p-8 rounded-2xl border border-gray-100 shadow-sm space-y-6">
             <h2 className="text-xl font-bold text-gray-900 border-b border-gray-100 pb-4">
@@ -131,7 +138,9 @@ function JobDescriptionForm() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Job Title</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Job Title
+                </label>
                 <input
                   type="text"
                   required
@@ -143,7 +152,9 @@ function JobDescriptionForm() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Job Description Summary</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Job Description Summary
+                </label>
                 <textarea
                   rows={4}
                   required
@@ -156,22 +167,30 @@ function JobDescriptionForm() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Minimum Experience (Years)</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Minimum Experience (Years)
+                  </label>
                   <input
                     type="number"
                     min="0"
                     value={minExperience}
-                    onChange={(event) => setMinExperience(Number(event.target.value))}
+                    onChange={(event) =>
+                      setMinExperience(Number(event.target.value))
+                    }
                     className="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1254E7]/20 focus:border-[#1254E7] text-gray-800 transition-all text-sm"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Maximum Experience (Years)</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Maximum Experience (Years)
+                  </label>
                   <input
                     type="number"
                     min="0"
                     value={maxExperience}
-                    onChange={(event) => setMaxExperience(Number(event.target.value))}
+                    onChange={(event) =>
+                      setMaxExperience(Number(event.target.value))
+                    }
                     className="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1254E7]/20 focus:border-[#1254E7] text-gray-800 transition-all text-sm"
                   />
                 </div>
@@ -187,18 +206,25 @@ function JobDescriptionForm() {
 
             {/* Skills Input */}
             <div className="space-y-3">
-              <label className="block text-sm font-semibold text-gray-700">Required Skills</label>
+              <label className="block text-sm font-semibold text-gray-700">
+                Required Skills
+              </label>
               <div className="flex gap-2">
                 <input
                   type="text"
                   placeholder="Enter a skill (e.g. React, TypeScript)"
                   value={skillInput}
                   onChange={(event) => setSkillInput(event.target.value)}
-                  onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addSkill(); }}}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      addSkill();
+                    }
+                  }}
                   className="flex-1 px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1254E7]/20 focus:border-[#1254E7] text-gray-800 transition-all text-sm"
                 />
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={addSkill}
                   className="bg-[#1254E7] hover:bg-[#0f46c2] text-white font-semibold px-5 py-3 rounded-xl transition-all shadow-md shadow-[#1254E7]/20 text-sm whitespace-nowrap"
                 >
@@ -209,14 +235,16 @@ function JobDescriptionForm() {
               {skills.length > 0 && (
                 <div className="flex flex-wrap gap-2 pt-2">
                   {skills.map((skill) => (
-                    <span 
-                      key={skill} 
+                    <span
+                      key={skill}
                       className="inline-flex items-center gap-1.5 bg-[#1254E7]/10 text-[#1254E7] text-xs font-semibold px-3 py-1.5 rounded-lg border border-[#1254E7]/20"
                     >
                       {skill}
                       <button
                         type="button"
-                        onClick={() => setSkills(skills.filter((item) => item !== skill))}
+                        onClick={() =>
+                          setSkills(skills.filter((item) => item !== skill))
+                        }
                         className="text-[#1254E7] hover:text-red-600 font-bold ml-1 transition-colors"
                       >
                         ×
@@ -229,7 +257,9 @@ function JobDescriptionForm() {
 
             {/* Education Input */}
             <div className="pt-2">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Education Requirement</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Education Requirement
+              </label>
               <input
                 type="text"
                 placeholder="e.g. Bachelor's in Computer Science or equivalent"
@@ -241,18 +271,27 @@ function JobDescriptionForm() {
 
             {/* Certifications Input */}
             <div className="space-y-3 pt-2">
-              <label className="block text-sm font-semibold text-gray-700">Certifications</label>
+              <label className="block text-sm font-semibold text-gray-700">
+                Certifications
+              </label>
               <div className="flex gap-2">
                 <input
                   type="text"
                   placeholder="Enter a certification (e.g. AWS Certified Developer)"
                   value={certificationInput}
-                  onChange={(event) => setCertificationInput(event.target.value)}
-                  onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addCertification(); }}}
+                  onChange={(event) =>
+                    setCertificationInput(event.target.value)
+                  }
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      addCertification();
+                    }
+                  }}
                   className="flex-1 px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1254E7]/20 focus:border-[#1254E7] text-gray-800 transition-all text-sm"
                 />
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={addCertification}
                   className="bg-[#1254E7] hover:bg-[#0f46c2] text-white font-semibold px-5 py-3 rounded-xl transition-all shadow-md shadow-[#1254E7]/20 text-sm whitespace-nowrap"
                 >
@@ -263,14 +302,20 @@ function JobDescriptionForm() {
               {certifications.length > 0 && (
                 <div className="flex flex-wrap gap-2 pt-2">
                   {certifications.map((certification) => (
-                    <span 
-                      key={certification} 
+                    <span
+                      key={certification}
                       className="inline-flex items-center gap-1.5 bg-gray-100 text-gray-700 text-xs font-semibold px-3 py-1.5 rounded-lg border border-gray-200"
                     >
                       {certification}
                       <button
                         type="button"
-                        onClick={() => setCertifications(certifications.filter((item) => item !== certification))}
+                        onClick={() =>
+                          setCertifications(
+                            certifications.filter(
+                              (item) => item !== certification,
+                            ),
+                          )
+                        }
                         className="text-gray-400 hover:text-red-600 font-bold ml-1 transition-colors"
                       >
                         ×
@@ -286,11 +331,15 @@ function JobDescriptionForm() {
           <div className="bg-white p-6 sm:p-8 rounded-2xl border border-gray-100 shadow-sm space-y-6">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-gray-100 pb-4 gap-4">
               <div>
-                <h2 className="text-xl font-bold text-gray-900">3. Additional Requirements</h2>
-                <p className="text-xs text-gray-500 mt-0.5">Add custom evaluation criteria (required or preferred)</p>
+                <h2 className="text-xl font-bold text-gray-900">
+                  3. Additional Requirements
+                </h2>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  Add custom evaluation criteria (required or preferred)
+                </p>
               </div>
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={addRequirement}
                 className="inline-flex items-center gap-1.5 bg-[#1254E7]/10 hover:bg-[#1254E7]/20 text-[#1254E7] font-semibold px-4 py-2 rounded-xl text-xs transition-colors"
               >
@@ -300,18 +349,22 @@ function JobDescriptionForm() {
 
             {requirements.length === 0 ? (
               <div className="text-center py-8 text-gray-400 text-sm border-2 border-dashed border-gray-100 rounded-xl">
-                No custom requirements added yet. Click "+ Add Requirement" above.
+                No custom requirements added yet. Click "+ Add Requirement"
+                above.
               </div>
             ) : (
               <div className="space-y-4">
                 {requirements.map((requirement, index) => (
-                  <div key={index} className="p-5 bg-gray-50/70 border border-gray-200/80 rounded-xl space-y-4 relative group">
+                  <div
+                    key={index}
+                    className="p-5 bg-gray-50/70 border border-gray-200/80 rounded-xl space-y-4 relative group"
+                  >
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-[#1254E7] uppercase tracking-wider">
                         Requirement #{index + 1}
                       </span>
-                      <button 
-                        type="button" 
+                      <button
+                        type="button"
                         onClick={() => removeRequirement(index)}
                         className="text-gray-400 hover:text-red-600 text-xs font-semibold px-2.5 py-1 rounded-lg hover:bg-red-50 transition-colors"
                       >
@@ -326,14 +379,22 @@ function JobDescriptionForm() {
                           required
                           placeholder="Requirement title (e.g. Cloud Experience)"
                           value={requirement.title}
-                          onChange={(event) => updateRequirement(index, "title", event.target.value)}
+                          onChange={(event) =>
+                            updateRequirement(
+                              index,
+                              "title",
+                              event.target.value,
+                            )
+                          }
                           className="w-full px-3.5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1254E7]/20 focus:border-[#1254E7]"
                         />
                       </div>
                       <div>
                         <select
                           value={requirement.type}
-                          onChange={(event) => updateRequirement(index, "type", event.target.value)}
+                          onChange={(event) =>
+                            updateRequirement(index, "type", event.target.value)
+                          }
                           className="w-full px-3.5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1254E7]/20 focus:border-[#1254E7]"
                         >
                           <option value="required">Required</option>
@@ -347,7 +408,13 @@ function JobDescriptionForm() {
                         rows={2}
                         placeholder="Detailed description for the AI matching engine..."
                         value={requirement.description}
-                        onChange={(event) => updateRequirement(index, "description", event.target.value)}
+                        onChange={(event) =>
+                          updateRequirement(
+                            index,
+                            "description",
+                            event.target.value,
+                          )
+                        }
                         className="w-full px-3.5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1254E7]/20 focus:border-[#1254E7] resize-none"
                       />
                     </div>
@@ -364,12 +431,21 @@ function JobDescriptionForm() {
               className="w-full sm:w-auto inline-flex items-center justify-center bg-[#1254E7] hover:bg-[#0f46c2] text-white font-semibold px-8 py-4 rounded-xl shadow-xl shadow-[#1254E7]/25 transition-all duration-200 transform hover:-translate-y-0.5 text-base"
             >
               <span>Create Job & Continue to Upload</span>
-              <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              <svg
+                className="w-5 h-5 ml-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
               </svg>
             </button>
           </div>
-
         </form>
       </div>
     </div>
