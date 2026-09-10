@@ -1,8 +1,10 @@
+import JobDescriptionForm from "../components/JobDescriptionForm/JobDescriptionForm";
+
 const JobDescriptionPage = () => {
     return (
-        <div>
-            <h1>Create Job</h1>
-        </div>
+        <main className="min-h-screen bg-gray-50/50">
+            <JobDescriptionForm />
+        </main>
     );
 };
 

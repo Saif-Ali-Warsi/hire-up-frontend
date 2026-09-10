@@ -1,8 +1,10 @@
+import ResumeUpload from "../components/ResumeUpload/ResumeUpload";
+
 const ResumeUploadPage = () => {
     return (
-        <div>
-            <h1>Upload Resumes</h1>
-        </div>
+        <main className="min-h-screen bg-gray-50/50">
+            <ResumeUpload />
+        </main>
     );
 };
 

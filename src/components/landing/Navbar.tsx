@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,12 +48,12 @@ const Navbar = () => {
             >
               Sign In
             </a>
-            <a
-              href="#get-started"
+            <Link
+              to="/job"
               className="bg-[#1254E7] hover:bg-[#0f46c2] text-white font-medium px-5 py-2.5 rounded-xl shadow-lg shadow-[#1254E7]/25 transition-all duration-200 transform hover:-translate-y-0.5"
             >
               Get Started
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Hamburger Button */}
@@ -122,13 +123,13 @@ const Navbar = () => {
             >
               Sign In
             </a>
-            <a
-              href="#get-started"
+            <Link
+              to="/job"
               onClick={() => setIsOpen(false)}
               className="w-full text-center bg-[#1254E7] hover:bg-[#0f46c2] text-white font-medium py-2.5 rounded-xl shadow-md shadow-[#1254E7]/25 transition-all"
             >
               Get Started
-            </a>
+            </Link>
           </div>
         </div>
       )}

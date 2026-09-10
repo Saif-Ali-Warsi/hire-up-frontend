@@ -4,19 +4,22 @@ import LandingPage from "./pages/LandingPage";
 import JobDescriptionPage from "./pages/JobDescriptionPage";
 import ResumeUploadPage from "./pages/ResumeUploadPage";
 import ScreeningResultsPage from "./pages/ScreeningResultsPage";
+import { ScreeningProvider } from "./context/ScreeningContext";
 
 const App = () => {
   return (
     <HashRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
+      <ScreeningProvider>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
 
-        <Route path="/job" element={<JobDescriptionPage />} />
+          <Route path="/job" element={<JobDescriptionPage />} />
 
-        <Route path="/upload" element={<ResumeUploadPage />} />
+          <Route path="/upload" element={<ResumeUploadPage />} />
 
-        <Route path="/results" element={<ScreeningResultsPage />} />
-      </Routes>
+          <Route path="/results" element={<ScreeningResultsPage />} />
+        </Routes>
+      </ScreeningProvider>
     </HashRouter>
   );
 };
