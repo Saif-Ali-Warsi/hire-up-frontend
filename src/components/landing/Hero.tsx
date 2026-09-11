@@ -66,31 +66,6 @@ const Hero = () => {
                 <span>Watch Demo</span>
               </a>
             </div>
-
-            {/* Social Proof Mini-Banner */}
-            <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-              <div className="flex -space-x-2 overflow-hidden">
-                <div className="inline-block h-9 w-9 rounded-full ring-2 ring-white bg-[#1254E7] text-white flex items-center justify-center font-bold text-xs">
-                  JD
-                </div>
-                <div className="inline-block h-9 w-9 rounded-full ring-2 ring-white bg-indigo-600 text-white flex items-center justify-center font-bold text-xs">
-                  AS
-                </div>
-                <div className="inline-block h-9 w-9 rounded-full ring-2 ring-white bg-blue-500 text-white flex items-center justify-center font-bold text-xs">
-                  MK
-                </div>
-                <div className="inline-block h-9 w-9 rounded-full ring-2 ring-white bg-gray-800 text-white flex items-center justify-center font-bold text-xs">
-                  +
-                </div>
-              </div>
-              <div className="text-sm text-gray-600 text-center sm:text-left">
-                Trusted by{" "}
-                <span className="font-bold text-gray-900">
-                  500+ modern hiring teams
-                </span>{" "}
-                worldwide.
-              </div>
-            </div>
           </div>
 
           {/* Right Column: Visual Component Preview */}

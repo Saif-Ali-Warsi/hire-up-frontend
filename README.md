@@ -1,75 +1,154 @@
-# React + TypeScript + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# HireUP
 
-Currently, two official plugins are available:
+### AI-Powered Recruitment & Candidate Screening Platform
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+An AI-powered recruitment platform designed to help recruiters create job requirements, upload multiple candidate resumes, automatically analyze candidate profiles, and rank candidates based on their suitability for the role.
 
-## React Compiler
+<br>
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+<p>
+  <a href="https://saif-ali-warsi.github.io/hire-up-frontend/" target="_blank">
+    <img src="https://img.shields.io/badge/🌐_Live_Demo-Visit_Now-1254E7?style=for-the-badge" alt="Live Demo"/>
+  </a>
 
-## Expanding the ESLint configuration
+  <a href="https://github.com/Saif-Ali-Warsi/hire-up-frontend" target="_blank">
+    <img src="https://img.shields.io/badge/GitHub-Frontend-181717?style=for-the-badge&logo=github" alt="GitHub Repository"/>
+  </a>
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+</p>
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+</div>
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Features
 
-```
+<table>
+<tr>
+<td width="50%">
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+### 💼 Job Management
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Create Job Descriptions
+- Define Experience Range
+- Add Education Requirements
+- Add Required Skills
+- Add Certifications
+- Add Custom Requirements
+- Required & Preferred Requirements
+- Manage Multiple Jobs
+- Job Dashboard
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+</td>
 
-```
+<td width="50%">
+
+### 📄 Resume Screening
+
+- Upload Multiple Resumes
+- PDF Resume Processing
+- Automatic Resume Text Extraction
+- Candidate Profile Extraction
+- AI-Powered Resume Analysis
+- Candidate-to-Job Matching
+- Candidate Ranking
+- Match Score Calculation
+
+</td>
+</tr>
+
+<tr>
+<td width="50%">
+
+### 🤖 AI Candidate Evaluation
+
+- AI Resume Understanding
+- Experience Analysis
+- Skills Matching
+- Education Matching
+- Certification Matching
+- Custom Requirement Evaluation
+- Required vs Preferred Requirements
+- Missing Information Detection
+- Candidate Match Score
+- Candidate Tier Classification
+
+</td>
+
+<td width="50%">
+
+### 📊 Screening Results
+
+- Candidate Ranking
+- Overall Match Score
+- Score Breakdown
+- Matched Skills
+- Missing Skills
+- Requirement Status
+- Hard Requirement Detection
+- Candidate Summary
+- Screening Overview
+- Expandable Candidate Details
+
+</td>
+</tr>
+
+<tr>
+<td width="50%">
+
+### 🔐 Authentication
+
+- Recruiter Registration
+- Recruiter Login
+- Protected Dashboard
+- Token-Based Authentication
+- Authenticated Job Management
+- Authenticated Resume Screening
+- Session Handling
+
+</td>
+
+<td width="50%">
+
+### 📈 Dashboard & History
+
+- Total Jobs
+- Candidates Screened
+- Screening Sessions
+- Job Listing
+- Screening Session Tracking
+- Candidate Screening Records
+- Recruiter-Specific Data
+
+</td>
+</tr>
+</table>
+
+---
+
+## AI Screening Approach
+
+HireUP is designed to evaluate candidates based on the actual information available in their resumes.
+
+The platform follows a structured evaluation approach:
+
+```text
+Job Description
+      ↓
+Job Requirements
+      ↓
+Upload Candidate Resumes
+      ↓
+PDF Text Extraction
+      ↓
+AI Candidate Profile Extraction
+      ↓
+Candidate Evaluation
+      ↓
+Requirement Matching
+      ↓
+Score Calculation
+      ↓
+Candidate Ranking
