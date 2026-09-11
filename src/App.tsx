@@ -9,6 +9,7 @@ import AuthPage from "./pages/AuthPage";
 import { Toaster } from "react-hot-toast";
 import DashboardPage from "./pages/DashboardPage";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
+import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
   return (
@@ -19,19 +20,21 @@ const App = () => {
           duration: 4000,
         }}
       />
-      <ScreeningProvider>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/job" element={<JobDescriptionPage />} />
-          <Route path="/upload" element={<ResumeUploadPage />} />
-          <Route path="/results" element={<ScreeningResultsPage />} />
-          <Route path="/login" element={<AuthPage />} />
+      <AuthProvider>
+        <ScreeningProvider>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/job" element={<JobDescriptionPage />} />
+            <Route path="/upload" element={<ResumeUploadPage />} />
+            <Route path="/results" element={<ScreeningResultsPage />} />
+            <Route path="/login" element={<AuthPage />} />
 
-          <Route element={<ProtectedRoute />}>
-            <Route path="/dashboard" element={<DashboardPage />} />
-          </Route>
-        </Routes>
-      </ScreeningProvider>
+            <Route element={<ProtectedRoute />}>
+              <Route path="/dashboard" element={<DashboardPage />} />
+            </Route>
+          </Routes>
+        </ScreeningProvider>
+      </AuthProvider>
     </HashRouter>
   );
 };
