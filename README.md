@@ -16,7 +16,6 @@ An AI-powered recruitment platform designed to help recruiters create job requir
   <a href="https://github.com/Saif-Ali-Warsi/hire-up-frontend" target="_blank">
     <img src="https://img.shields.io/badge/GitHub-Frontend-181717?style=for-the-badge&logo=github" alt="GitHub Repository"/>
   </a>
-
 </p>
 
 </div>
@@ -112,7 +111,7 @@ An AI-powered recruitment platform designed to help recruiters create job requir
 
 <td width="50%">
 
-### 📈 Dashboard & History
+### 📈 Dashboard & Screening
 
 - Total Jobs
 - Candidates Screened
@@ -128,11 +127,45 @@ An AI-powered recruitment platform designed to help recruiters create job requir
 
 ---
 
+## Application Screenshots
+
+### Landing Page
+
+<p align="center">
+  <img src="https://www.image2url.com/r2/default/images/1789105448047-3e319526-1373-45de-9445-a81639db0f7b.png" alt="HireUP Landing Page" width="900"/>
+</p>
+
+### Job Description
+
+<p align="center">
+  <img src="https://www.image2url.com/r2/default/images/1789105443041-a41d72a0-4f09-480b-b4a6-23405f8bfb14.png" alt="HireUP Job Description" width="900"/>
+</p>
+
+### Resume Upload
+
+<p align="center">
+  <img src="https://www.image2url.com/r2/default/images/1789105452646-ba01f866-2948-4e7f-9c00-4aa8ea163774.png" alt="HireUP Resume Upload" width="900"/>
+</p>
+
+### AI Screening Results
+
+<p align="center">
+  <img src="https://www.image2url.com/r2/default/images/1789105457045-c9a2b572-0a95-4db6-8bb1-2253476d302b.png" alt="HireUP AI Screening Results" width="900"/>
+</p>
+
+### Dashboard
+
+<p align="center">
+  <img src="SCREENSHOT_DASHBOARD_URL" alt="HireUP Dashboard" width="900"/>
+</p>
+
+---
+
 ## AI Screening Approach
 
-HireUP is designed to evaluate candidates based on the actual information available in their resumes.
+HireUP evaluates candidates against the requirements defined by the recruiter.
 
-The platform follows a structured evaluation approach:
+The screening workflow processes resumes through multiple stages:
 
 ```text
 Job Description
