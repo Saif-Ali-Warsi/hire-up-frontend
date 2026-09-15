@@ -16,7 +16,8 @@ import {
   ArrowRight, 
   Loader2, 
   Sparkles,
-  Layers
+  Layers,
+  Check
 } from "lucide-react";
 
 const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1 MB
@@ -168,42 +169,76 @@ function ResumeUpload() {
   };
 
   const totalSelectedCount = files.length + invalidFiles.length;
+  const capacityPercentage = Math.min((files.length / 50) * 100, 100);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/20 to-[#f8f3eb]/40 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      
-      {/* Background Decorative Glows */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 left-10 w-96 h-96 bg-indigo-400/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen bg-[#faf8f5] py-10 sm:py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Background Decorative Mesh Pattern */}
+      <div 
+        className="absolute inset-0 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-35 pointer-events-none" 
+      />
+      <div className="absolute top-0 right-1/4 w-[600px] h-[350px] bg-gradient-to-tr from-[#1254E7]/10 via-indigo-400/5 to-transparent blur-3xl pointer-events-none -z-10" />
 
       <div className="max-w-3xl mx-auto space-y-8 relative z-10">
         
-        {/* Header Title Area */}
+        {/* Stepper Header */}
+        <div className="max-w-xl mx-auto">
+          <div className="flex items-center justify-between text-xs font-semibold">
+            <span className="text-emerald-600 flex items-center gap-1.5 font-bold">
+              <span className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px]">
+                <Check className="w-3 h-3 stroke-[3]" />
+              </span>
+              Define Criteria
+            </span>
+            <div className="h-0.5 flex-1 mx-3 bg-emerald-200" />
+            <span className="text-[#1254E7] flex items-center gap-1.5 font-bold">
+              <span className="w-5 h-5 rounded-full bg-[#1254E7] text-white flex items-center justify-center text-[10px]">
+                2
+              </span>
+              Upload Resumes
+            </span>
+            <div className="h-0.5 flex-1 mx-3 bg-stone-200" />
+            <span className="text-gray-400 flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-stone-200 text-stone-600 flex items-center justify-center text-[10px]">
+                3
+              </span>
+              AI Shortlist
+            </span>
+          </div>
+        </div>
+
+        {/* Page Header */}
         <div className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1254E7]/10 border border-[#1254E7]/20 text-[#1254E7] font-bold text-xs uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-stone-200/80 shadow-2xs text-[#1254E7] font-bold text-xs uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>AI Candidate Pipeline</span>
+            <span>AI Ingestion Engine</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
             Upload Candidate Resumes
           </h1>
 
-          <p className="text-sm text-gray-500 max-w-lg mx-auto leading-relaxed">
-            Upload candidate portfolios in bulk. Only <span className="font-semibold text-gray-800">PDF format</span> up to <span className="font-semibold text-gray-800">1 MB</span> per file are accepted.
+          {/* Active Job Pill */}
+          <div className="inline-flex items-center gap-2 bg-blue-50/80 border border-blue-200/60 px-3.5 py-1 rounded-xl text-xs text-[#1254E7]">
+            <span className="font-semibold text-gray-600">Target Role:</span>
+            <span className="font-bold">{job.jobTitle || "Untitled Position"}</span>
+          </div>
+
+          <p className="text-sm text-gray-600 max-w-lg mx-auto leading-relaxed">
+            Drag & drop candidate CVs in bulk. We parse individual work histories and measure semantic alignment against your criteria.
           </p>
         </div>
 
-        {/* Drag and Drop Upload Box Container */}
-        <div className="bg-white/80 backdrop-blur-xl p-6 sm:p-8 rounded-3xl border border-gray-200/80 shadow-xl shadow-blue-900/5 space-y-6">
+        {/* Drag and Drop Container */}
+        <div className="bg-white rounded-3xl border border-stone-200/80 shadow-sm p-6 sm:p-8 space-y-6">
           <div 
             onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
             onDragLeave={() => setIsDragging(false)}
             onDrop={() => setIsDragging(false)}
-            className={`relative border-2 border-dashed rounded-2xl p-8 sm:p-10 text-center transition-all duration-300 group ${
+            className={`relative border-2 border-dashed rounded-2xl p-8 sm:p-12 text-center transition-all duration-300 group cursor-pointer ${
               isDragging 
-                ? "border-[#1254E7] bg-blue-50/50 scale-[1.01]" 
-                : "border-gray-200 hover:border-[#1254E7] bg-gray-50/40 hover:bg-blue-50/20"
+                ? "border-[#1254E7] bg-blue-50/60 scale-[1.01]" 
+                : "border-stone-200 hover:border-[#1254E7] bg-stone-50/50 hover:bg-blue-50/20"
             }`}
           >
             <input
@@ -214,67 +249,76 @@ function ResumeUpload() {
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
             />
 
-            <div className="flex flex-col items-center justify-center space-y-4">
-              <div className="w-16 h-16 rounded-2xl bg-white shadow-md shadow-blue-500/10 border border-gray-100 group-hover:bg-[#1254E7] text-[#1254E7] group-hover:text-white flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-                <UploadCloud className="w-7 h-7" />
+            <div className="flex flex-col items-center justify-center space-y-4 pointer-events-none">
+              <div className="w-16 h-16 rounded-2xl bg-white shadow-md shadow-blue-500/10 border border-stone-200/80 group-hover:bg-[#1254E7] text-[#1254E7] group-hover:text-white flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+                <UploadCloud className="w-8 h-8 transition-transform duration-300 group-hover:-translate-y-0.5" />
               </div>
 
               <div className="space-y-1">
-                <div className="text-sm font-bold text-gray-800">
-                  Click to upload <span className="font-normal text-gray-500">or drag & drop files here</span>
+                <div className="text-base font-bold text-gray-900">
+                  Click to upload <span className="font-normal text-gray-500">or drag & drop</span>
                 </div>
-                <p className="text-xs text-gray-400">
-                  Maximum 50 files allowed (.PDF only, max 1MB each)
+                <p className="text-xs text-gray-500">
+                  PDF format only • Maximum 1 MB per file
                 </p>
               </div>
 
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-xl text-xs font-semibold text-gray-600 shadow-sm">
-                Browse Files
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-stone-200 rounded-xl text-xs font-semibold text-gray-700 shadow-2xs group-hover:border-[#1254E7]/40 transition-colors">
+                Browse System Files
               </span>
             </div>
           </div>
 
-          {/* Selection Counter Bar */}
-          <div className="flex items-center justify-between text-xs font-semibold text-gray-500 px-1 pt-1">
-            <span className="flex items-center gap-1.5">
-              <Layers className="w-4 h-4 text-gray-400" />
-              <span>Selection Overview</span>
-            </span>
-            <span className="text-[#1254E7] bg-[#1254E7]/10 px-3 py-1 rounded-full font-bold">
-              {totalSelectedCount} / 50 resumes selected
-            </span>
+          {/* Capacity Progress Bar */}
+          <div className="space-y-2 pt-1">
+            <div className="flex items-center justify-between text-xs font-semibold text-gray-600">
+              <span className="flex items-center gap-1.5">
+                <Layers className="w-4 h-4 text-gray-400" />
+                <span>Batch Upload Capacity</span>
+              </span>
+              <span className="text-[#1254E7] font-bold">
+                {files.length} / 50 resumes ready
+              </span>
+            </div>
+            
+            <div className="w-full bg-stone-100 h-2 rounded-full overflow-hidden">
+              <div 
+                className="bg-[#1254E7] h-full rounded-full transition-all duration-300"
+                style={{ width: `${capacityPercentage}%` }}
+              />
+            </div>
           </div>
         </div>
 
-        {/* Ready for Screening Files List */}
+        {/* Valid Resumes List */}
         {files.length > 0 && (
-          <div className="bg-white/80 backdrop-blur-xl p-6 sm:p-8 rounded-3xl border border-emerald-100 shadow-xl shadow-emerald-900/5 space-y-4 animate-in fade-in duration-200">
-            <div className="flex items-center justify-between border-b border-gray-100 pb-3.5">
-              <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500" />
-                Ready for Screening
+          <div className="bg-white rounded-3xl border border-emerald-100 shadow-sm p-6 sm:p-7 space-y-4">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3.5">
+              <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-xs shadow-emerald-500" />
+                Valid Resumes for Evaluation
               </h3>
-              <span className="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-3 py-1 rounded-full">
-                {files.length} Valid File{files.length > 1 ? "s" : ""}
+              <span className="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-2.5 py-1 rounded-full">
+                {files.length} File{files.length > 1 ? "s" : ""}
               </span>
             </div>
 
-            <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1 custom-scrollbar">
+            <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
               {files.map((file, index) => (
                 <div
                   key={`${file.name}-${file.lastModified}`}
-                  className="flex items-center justify-between p-3.5 bg-gray-50/80 hover:bg-emerald-50/30 rounded-2xl transition-all text-sm border border-gray-100 hover:border-emerald-200 group"
+                  className="flex items-center justify-between p-3.5 bg-stone-50/70 hover:bg-emerald-50/30 rounded-2xl transition-all text-sm border border-stone-200/60 hover:border-emerald-200 group"
                 >
                   <div className="flex items-center space-x-3.5 overflow-hidden">
-                    <div className="w-9 h-9 rounded-xl bg-emerald-100/60 text-emerald-600 flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9 rounded-xl bg-emerald-100/70 text-emerald-700 flex items-center justify-center shrink-0">
                       <FileText className="w-4 h-4" />
                     </div>
                     <div className="truncate">
-                      <span className="font-semibold text-gray-800 truncate block">
+                      <span className="font-semibold text-gray-800 truncate block text-xs sm:text-sm">
                         {file.name}
                       </span>
-                      <span className="text-xs text-gray-400 font-medium">
-                        {(file.size / 1024).toFixed(0)} KB
+                      <span className="text-[11px] text-gray-400 font-medium">
+                        {(file.size / 1024).toFixed(0)} KB • PDF
                       </span>
                     </div>
                   </div>
@@ -282,8 +326,8 @@ function ResumeUpload() {
                   <button
                     type="button"
                     onClick={() => removeFile(index)}
-                    className="text-gray-400 hover:text-red-600 p-1.5 rounded-xl hover:bg-red-50 transition-colors ml-2 shrink-0"
-                    title="Remove file"
+                    className="text-stone-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-50 transition-colors ml-2 shrink-0"
+                    title="Remove resume"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -293,37 +337,37 @@ function ResumeUpload() {
           </div>
         )}
 
-        {/* Not Eligible / Invalid Files List */}
+        {/* Invalid Files Warning List */}
         {invalidFiles.length > 0 && (
-          <div className="bg-white/80 backdrop-blur-xl p-6 sm:p-8 rounded-3xl border border-red-100 shadow-xl shadow-red-900/5 space-y-4 animate-in fade-in duration-200">
-            <div className="flex items-center justify-between border-b border-red-50 pb-3.5">
-              <h3 className="text-base font-bold text-red-900 flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-500 shadow-sm shadow-red-500" />
-                Not Eligible for Screening
+          <div className="bg-white rounded-3xl border border-rose-200/80 shadow-sm p-6 sm:p-7 space-y-4">
+            <div className="flex items-center justify-between border-b border-rose-100 pb-3.5">
+              <h3 className="text-sm font-bold text-rose-900 flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-xs shadow-rose-500" />
+                Incompatible Files (Skipped)
               </h3>
-              <span className="text-xs font-bold text-red-700 bg-red-50 border border-red-200/60 px-3 py-1 rounded-full">
-                {invalidFiles.length} Invalid File{invalidFiles.length > 1 ? "s" : ""}
+              <span className="text-xs font-bold text-rose-700 bg-rose-50 border border-rose-200/60 px-2.5 py-1 rounded-full">
+                {invalidFiles.length} Skipped
               </span>
             </div>
 
-            <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
+            <div className="space-y-2 max-h-56 overflow-y-auto pr-1">
               {invalidFiles.map((file, index) => (
                 <div
                   key={`${file.name}-${file.lastModified}`}
-                  className="flex items-center justify-between p-3.5 bg-red-50/40 hover:bg-red-50/70 rounded-2xl transition-all text-sm border border-red-100"
+                  className="flex items-center justify-between p-3.5 bg-rose-50/30 rounded-2xl transition-all text-sm border border-rose-100"
                 >
                   <div className="flex items-center space-x-3.5 overflow-hidden">
-                    <div className="w-9 h-9 rounded-xl bg-red-100 text-red-600 flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center shrink-0">
                       <AlertTriangle className="w-4 h-4" />
                     </div>
                     <div className="truncate">
-                      <span className="font-semibold text-gray-800 truncate block">
+                      <span className="font-semibold text-gray-800 truncate block text-xs sm:text-sm">
                         {file.name}
                       </span>
-                      <span className="text-xs font-medium text-red-600">
+                      <span className="text-[11px] font-medium text-rose-600">
                         {file.type !== "application/pdf"
-                          ? "Only PDF format is permitted"
-                          : "File size exceeds 1 MB limit"}
+                          ? "Unsupported file type (PDF required)"
+                          : "Exceeds 1 MB size limit"}
                       </span>
                     </div>
                   </div>
@@ -331,7 +375,7 @@ function ResumeUpload() {
                   <button
                     type="button"
                     onClick={() => removeInvalidFile(index)}
-                    className="text-red-400 hover:text-red-600 p-1.5 rounded-xl hover:bg-red-100 transition-colors ml-2 shrink-0"
+                    className="text-rose-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-100 transition-colors ml-2 shrink-0"
                     title="Remove file"
                   >
                     <X className="w-4 h-4" />
@@ -342,18 +386,18 @@ function ResumeUpload() {
           </div>
         )}
 
-        {/* Action Panel / Sticky Submit Trigger */}
+        {/* Sticky Action Footer */}
         {resumes.length > 0 && (
-          <div className="bg-white/90 backdrop-blur-2xl p-5 sm:p-6 rounded-3xl border border-gray-200/80 shadow-2xl shadow-blue-900/10 flex flex-col sm:flex-row items-center justify-between gap-4 sticky bottom-6 z-20 animate-in slide-in-from-bottom-4 duration-300">
-            <div className="flex items-center gap-3 text-sm font-medium text-gray-600">
-              <div className="w-10 h-10 rounded-2xl bg-[#1254E7]/10 text-[#1254E7] flex items-center justify-center font-bold shrink-0">
-                <CheckCircle2 className="w-5 h-5 text-[#1254E7]" />
+          <div className="sticky bottom-6 z-20 bg-white/90 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-stone-200/80 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3 text-sm font-medium text-gray-700">
+              <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#1254E7] flex items-center justify-center font-bold shrink-0 border border-blue-100">
+                <CheckCircle2 className="w-4 h-4 text-[#1254E7]" />
               </div>
               <div>
-                <span className="font-bold text-gray-900 block">
-                  {files.length} resume{files.length > 1 ? "s" : ""} validated
+                <span className="font-bold text-gray-900 block text-xs sm:text-sm">
+                  {files.length} candidate resume{files.length > 1 ? "s" : ""} staged
                 </span>
-                <span className="text-xs text-gray-400">Ready to initiate intelligent review</span>
+                <span className="text-[11px] text-gray-500">Ready for instant AI screening</span>
               </div>
             </div>
 
@@ -361,12 +405,12 @@ function ResumeUpload() {
               type="button"
               onClick={handleStartScreening}
               disabled={isScreening}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#1254E7] hover:bg-[#0f46c2] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold text-sm px-8 py-3.5 rounded-2xl shadow-lg shadow-[#1254E7]/25 transition-all duration-200 cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#1254E7] hover:bg-[#0f46c2] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold text-sm px-8 py-3.5 rounded-xl shadow-lg shadow-[#1254E7]/25 hover:shadow-xl hover:shadow-[#1254E7]/35 transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer active:scale-95"
             >
               {isScreening ? (
                 <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  <span>Analyzing Resumes...</span>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Evaluating Candidates...</span>
                 </>
               ) : (
                 <>
