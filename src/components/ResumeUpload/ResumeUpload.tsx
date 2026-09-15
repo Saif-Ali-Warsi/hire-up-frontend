@@ -168,7 +168,6 @@ function ResumeUpload() {
     }
   };
 
-  const totalSelectedCount = files.length + invalidFiles.length;
   const capacityPercentage = Math.min((files.length / 50) * 100, 100);
 
   return (

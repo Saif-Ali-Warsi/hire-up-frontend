@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Hero = () => {
   return (
     <section className="relative pt-12 pb-20 lg:pt-12 lg:pb-12 bg-[#faf8f5] overflow-hidden">
@@ -38,8 +40,9 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 mb-4">
-              <a
-                href="#get-started"
+              <Link
+                to="/job"
+                
                 className="w-full sm:w-auto inline-flex items-center justify-center bg-[#1254E7] hover:bg-[#0e44be] text-white font-medium text-base px-7 py-3.5 rounded-xl shadow-lg shadow-[#1254E7]/20 hover:shadow-xl hover:shadow-[#1254E7]/30 transition-all duration-200 transform hover:-translate-y-0.5 group"
               >
                 <span>Screen Candidates Free</span>
@@ -56,7 +59,7 @@ const Hero = () => {
                     d="M13 7l5 5m0 0l-5 5m5-5H6"
                   />
                 </svg>
-              </a>
+              </Link>
 
               <a
                 href="#how-it-works"
